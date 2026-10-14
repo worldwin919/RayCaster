@@ -1,18 +1,19 @@
 # RayCaster
 
-A C++ project for building a real-time raycasting renderer. The repository is
-currently at the starter-scaffold stage: the entry point and an initial
-`Init` class are in place, but rendering, input, and scene logic have not yet
-been implemented.
+A small C++17 raycasting project with a working ASCII-rendered sample scene.
+It includes a grid map, player state, a DDA raycaster, and a renderer. It is a
+foundation for a fuller 2.5D renderer; graphics, texture loading, and player
+controls are not implemented yet.
 
 ## Project status
 
 | Area | Status |
 | --- | --- |
-| C++ entry point | Present |
-| Initialization scaffold | Present |
-| Raycasting and rendering | Not implemented |
-| Textures and shadows | Directories are reserved; no assets or logic yet |
+| C++ entry point and game orchestration | Implemented |
+| Grid map loading and validation | Implemented |
+| DDA raycasting | Implemented |
+| ASCII scene rendering | Implemented |
+| Interactive controls and image textures | Not implemented |
 
 ## Build and run
 
@@ -24,7 +25,7 @@ been implemented.
 Build from the repository root:
 
 ```powershell
-g++ -std=c++17 -Wall -Wextra -pedantic main.cpp src/Startup.cpp -o raycaster.exe
+g++ -std=c++17 -Wall -Wextra -pedantic -Iinclude main.cpp src/Game.cpp src/Map.cpp src/Raycaster.cpp src/Renderer.cpp -o raycaster.exe
 ```
 
 Run the executable:
@@ -33,17 +34,29 @@ Run the executable:
 .\raycaster.exe
 ```
 
-The current program is a scaffold and does not display a scene yet.
+Run the command from the repository root so the program can find
+`maps/demo.map`. It prints a single ASCII view of the sample map.
 
 ## Project layout
 
 ```text
 RayCaster/
 ├── main.cpp                 # Program entry point
+├── include/                 # Component declarations
+│   ├── Game.h
+│   ├── Map.h
+│   ├── Player.h
+│   ├── Raycaster.h
+│   └── Renderer.h
 ├── src/
-│   └── Startup.cpp          # Initialisation scaffold
-├── shadows/                 # Reserved for shadow-related code or assets
-├── textures/                # Reserved for texture assets
+│   ├── Game.cpp              # Loads the sample scene and coordinates rendering
+│   ├── Map.cpp               # Loads and validates grid maps
+│   ├── Raycaster.cpp         # Casts rays using the DDA algorithm
+│   ├── Renderer.cpp          # Draws an ASCII view
+│   └── Startup.cpp           # Original starter scaffold (not used by the renderer)
+├── maps/
+│   └── demo.map              # Sample enclosed level
+├── textures/                 # Reserved for future image assets
 └── .vscode/                 # VS Code C/C++ configuration
 ```
 

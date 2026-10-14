@@ -1,7 +1,20 @@
-#include<iostream>
-using namespace std;
+#include "Game.h"
+
+#include <exception>
+#include <iostream>
 
 int main()
 {
-    // init the main class to call the ray cast
+    try
+    {
+        Game game;
+        game.run();
+    }
+    catch (const std::exception& error)
+    {
+        std::cerr << "RayCaster error: " << error.what() << '\n';
+        return 1;
+    }
+
+    return 0;
 }
